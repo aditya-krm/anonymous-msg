@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+}
+#chatBox {
+    width: 300px;
+    margin: 100px auto;
+}
+#messages {
+    list-style-type: none;
+    padding: 0;
+}
+#messages li {
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+#messages .my-message {
+    background: #208ba9;
+    text-align: right;
+}
+#messages .her-message {
+    background: #f88e8e;
+    text-align: left;
+}
+#form {
+    display: flex;
+}
+#input {
+    flex: 1;
+    padding: 10px;
+}
+#button {
+    padding: 10px;
+}
