@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+import { useParams } from "react-router-dom";
 import "./Chat.css";
 
 const socket = io("http://localhost:5000");
 
 function Chat() {
+  const { roomId } = useParams();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    socket.on("chat message", (msg) => {
+    socket.emit("join room", roomId);
+
+    const handleMessage = (msg) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
-    });
+    };
+
+    socket.on("chat message", handleMessage);
 
     return () => {
-      socket.off("chat message");
+      socket.off("chat message", handleMessage);
     };
-  }, []);
+  }, [roomId]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
