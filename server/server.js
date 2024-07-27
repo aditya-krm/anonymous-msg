@@ -21,8 +21,13 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   console.log("A user is connected");
 
+  socket.on("join room", ({ roomId, name }) => {
+    socket.join(roomId);
+    console.log(`User ${name} joined room ${roomId}`);
+  });
+
   socket.on("chat message", (msg) => {
-    io.emit("chat message", { userId: socket.id, text: msg });
+    io.to(msg.roomId).emit("chat message", msg);
   });
 
   socket.on("disconnect", () => {
@@ -32,5 +37,5 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`http://localhost:${PORT}`);
 });
