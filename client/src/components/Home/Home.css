@@ -1,0 +1,62 @@
+.home{
+    width: 40%;
+    height: 55vh;
+    border: 1px solid rgba(245, 245, 245, 0.225);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    box-shadow: 1px 1px 10px rgba(245, 245, 245, 0.267);
+}
+.home h2{
+    text-align: center;
+}
+input[type="text"]{
+    width: 50%;
+    height: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.319);
+    border-radius: 5px;
+    padding-left: 2%;
+    font-size: 17px;
+    outline: none;
+}
+.input{
+    display: flex;
+    flex-direction: column;
+    margin-left: 4%;
+}
+.input label{
+    font-size: 18px;
+}
+.error-message{
+    color: red;
+    text-align: center;
+}
+#buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+#buttons button{
+    width: 35%;
+    height: 3rem;
+    background-color: rgb(69, 94, 116);
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+#buttons button:hover{
+    background-color: rgba(69, 94, 116, 0.625);
+    border: 1px solid rgba(192, 218, 241, 0.422);
+}
+
+@media only screen and (max-width: 600px) {
+    .home {
+      width: 95%;
+      height: vh;
+      margin-top: 40%;
+    }
+    input[type="text"]{
+        width: 94%;
+    }
+  }

@@ -23,15 +23,16 @@ io.on("connection", (socket) => {
 
   socket.on("join room", ({ roomId, name }) => {
     socket.join(roomId);
-    console.log(`User ${name} joined room ${roomId}`);
+    socket.to(roomId).emit("user joined", name);
+
+    socket.on("disconnect", () => {
+      socket.to(roomId).emit("user left", name);
+      console.log("User disconnected");
+    });
   });
 
   socket.on("chat message", (msg) => {
     io.to(msg.roomId).emit("chat message", msg);
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected");
   });
 });
 
