@@ -17,7 +17,11 @@ function Chat() {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io(import.meta.env.VITE_API);
+    const apiEndpoint = import.meta.env.MODE === 'development'
+      ? import.meta.env.VITE_API_LOCAL
+      : import.meta.env.VITE_API_HOSTED;
+
+    socketRef.current = io(apiEndpoint);
 
     socketRef.current.emit("join room", { roomId, name });
 
