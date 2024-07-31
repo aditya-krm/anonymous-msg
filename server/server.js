@@ -7,12 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://anonymous-msg-tau.vercel.app/",
-      "https://small-projects-sigma.vercel.app/",
-    ],
+    origin: "",
     methods: ["GET", "POST"],
   },
 });
@@ -24,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("A user is connected");
+  // console.log("A user is connected");
 
   socket.on("join room", ({ roomId, name }) => {
     socket.join(roomId);
@@ -32,7 +27,7 @@ io.on("connection", (socket) => {
 
     socket.on("disconnect", () => {
       socket.to(roomId).emit("user left", name);
-      console.log("User disconnected");
+      // console.log("User disconnected");
     });
   });
 
