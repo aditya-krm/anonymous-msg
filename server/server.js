@@ -7,27 +7,31 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "",
+    origin: "*",
     methods: ["GET", "POST"],
+    allowedHeaders: ["Access-Control-Allow-Origin"],
+    credentials: true,
   },
 });
 
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Access-Control-Allow-Origin"],
+  credentials: true,
+}));
 
 app.get("/", (req, res) => {
   res.send("Connected!");
 });
 
 io.on("connection", (socket) => {
-  // console.log("A user is connected");
-
   socket.on("join room", ({ roomId, name }) => {
     socket.join(roomId);
     socket.to(roomId).emit("user joined", name);
 
     socket.on("disconnect", () => {
       socket.to(roomId).emit("user left", name);
-      // console.log("User disconnected");
     });
   });
 
@@ -38,5 +42,6 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(`http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
+
