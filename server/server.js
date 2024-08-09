@@ -14,12 +14,14 @@ const io = socketIo(server, {
   },
 });
 
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Access-Control-Allow-Origin"],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Access-Control-Allow-Origin"],
+    credentials: true,
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("Connected!");
@@ -36,7 +38,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chat message", (msg) => {
-    io.to(msg.roomId).emit("chat message", msg);
+    socket.broadcast.to(msg.roomId).emit("chat message", msg);
   });
 });
 
@@ -44,4 +46,3 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-

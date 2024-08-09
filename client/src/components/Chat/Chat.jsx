@@ -21,7 +21,7 @@ function Chat() {
       ? import.meta.env.VITE_API_LOCAL
       : import.meta.env.VITE_API_HOSTED;
 
-    socketRef.current = io(apiEndpoint);
+    socketRef.current = io(import.meta.env.VITE_API_HOSTED);
 
     socketRef.current.emit("join room", { roomId, name });
 
